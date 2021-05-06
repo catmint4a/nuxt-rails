@@ -12,12 +12,9 @@ services:
       - 3306:3306
   web:
     build: .
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./src:/app
-      - yarn-cache:/usr/local/share/.cache/yarn/v6
-      - public-data:/app/public
-      - tmp-data:/app/tmp
-      - log-data:/app/log
     environment:
       RAILS_ENV: development
     depends_on:
@@ -26,8 +23,3 @@ services:
       - 3000:3000
     stdin_open: true
     tty: true
-volumes:
-  yarn-cache:
-  public-data:
-  tmp-data:
-  log-data:
